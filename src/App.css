@@ -9,6 +9,8 @@
   height: 100%;
   width: fit-content;
   background-color: #0a1436;
+  padding-left: 10px;
+  padding-right: 10px;
   
 }
 .form-outline{
@@ -26,4 +28,71 @@
   right:20px;
 }
 
+.btn_class{
+  background-color: #0a1436;
+  color:gray;
+  width:200px;
+  text-align: start;
+  border:0px;
+  font-size: 20px;
+  font-weight: 400;
+  
+  
+}
+.btn_class:hover{
+  background-color:#22A565;
+  color:white;
+}
 
+.dropdown-toggle:nth-child(1)::after{
+  display: none;
+}
+
+.bi.bi-chevron-down.first {
+  margin-left: 60px;
+}
+
+.bi.bi-chevron-down.second {
+  margin-left: 46px;
+}
+.bi.bi-chevron-down.third{
+  margin-left: 15px;
+}
+
+.top_div{
+  width:84%;
+  background-color: white;
+  text-align: start;
+  margin-left: 229px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  
+}
+
+.container_div{
+  width:85%;
+  background-color: #F8FAFB;
+  margin-left: 229px;
+  height: 94vh;
+  padding-left: 20px;
+  padding-top: 25px;
+
+}
+
+.main_trigger{
+  background-color: #22A565;
+  color:white;
+  border: 1px white;
+  border-radius: 5px;
+  font-weight: 500;
+  font-size: 20px;
+  
+}
+
+.bi.bi-plus{
+  background-color:inherit;
+}
+
+.random_div{
+  background-color: white;
+}
