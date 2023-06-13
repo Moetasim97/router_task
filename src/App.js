@@ -1,4 +1,3 @@
-
 import './App.css';
 import image from './Screenshot 2023-06-11 222930.png'
 import React from "react"
@@ -34,15 +33,24 @@ class App extends React.Component{
   toggle_modal=()=>{
     if(this.state.modal_state==false){
       this.setState(()=>{ return {...this.state,modal_state:true}})
+      console.log(this.state)
      
     }
     else if(this.state.modal_state==true){
-     
+      this.setState(() => { return { ...this.state, modal_state: false } })
+      console.log(this.state)
     }
   }
   render(){
-    console.log(this.state)
+    console.log("I just got rendered")
     const age=this.state.age
+
+
+    // enabling the modal child to change the state of the parent component
+    function close_modal(object){
+      this.state.modal_state=false
+      
+    }
 
      this.handleChange=(e)=>{
       return this.setState({age:e.target.value})
@@ -57,7 +65,7 @@ class App extends React.Component{
       <>
       
       <div className="App bg-white">
-      <Modal state={this.state.modal_state} rendering_function={this.rendering_function}/>
+      <Modal state={this.state} close={close_modal}/>
 
         <div className='sidebar '>
           <img src={image} />
@@ -71,9 +79,9 @@ class App extends React.Component{
         <div className='d-flex flex-column mt-5 '>
             <div className='text-secondary px-2 h5' align="start"> Settings</div>
             <div className="dropdown">
-                <button className="btn_class py-2 dropdown-toggle"  type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
-                  ATM Settings
-                  <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" className="bi bi-chevron-down first" viewBox="0 0 14 14">
+                <button className="btn_class py-2 dropdown-toggle d-flex align-items-baseline justify-content-between"  type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
+                  <div>ATM Settings</div> 
+                  <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" className="bi bi-chevron-down " viewBox="0 0 14 14">
                     <path fillRule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/>
                   </svg>
                 </button>
@@ -84,9 +92,9 @@ class App extends React.Component{
                   <a className="dropdown-item" href="#">Something else here</a>
                 </div>
                 <div className="dropdown">
-                <button className="btn_class py-2 Name dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  Business Setup
-                  <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" className="bi bi-chevron-down second" viewBox="0 0 14 14">
+                <button className="btn_class py-2 Name dropdown-toggle d-flex align-items-baseline justify-content-between" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <div>Business Setup</div> 
+                  <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" className="bi bi-chevron-down " viewBox="0 0 14 14">
                     <path fillRule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/>
                   </svg>
                 </button>
@@ -97,9 +105,9 @@ class App extends React.Component{
                 </div>
             </div>
             <div className="dropdown">
-                <button className="btn_class py-2 Name dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  User Management
-                  <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" className="bi bi-chevron-down third" viewBox="0 0 14 14">
+                <button className="btn_class py-2 Name dropdown-toggle d-flex align-items-baseline justify-content-between" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <div>User Management</div>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" className="bi bi-chevron-down " viewBox="0 0 14 14">
                     <path fillRule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/>
                   </svg>
                 </button>
@@ -113,17 +121,17 @@ class App extends React.Component{
             </div>
         </div>
        
-        <div className="top_div" > <strong>Good Morning!</strong> {Date().substring(0,25)}</div>
+        <div className="top_div border border-seconndary" > <strong>Good Morning!</strong> {Date().substring(0,25)}</div>
         {/* This is the part that I'm now interested in */}
         
         <div className='container_div border'>
           
           
           <div className='d-flex justify-content-between'>
-            <div className="h4">User Management</div>
+            <div className="h5">User Management</div>
             <button className='main_trigger d-flex p-2 mx-4' onClick={this.toggle_modal}>
              
-                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" className="bi bi-plus" viewBox="0 0 16 16">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" className="bi bi-plus" viewBox="0 0 16 16">
                   <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
                 </svg>
                 Add New
@@ -137,7 +145,7 @@ class App extends React.Component{
         display:"flex",
         alignItems:"baseline",
         width: 'fit-content',
-        height: 300,
+        height: "fit-content",
         backgroundColor: 'inherit',
         marginTop:"10px "
       }}
@@ -146,24 +154,34 @@ class App extends React.Component{
        <TextField
           label=""
           id="outlined-start-adornment"
-          sx={{ m:1, width: '40ch',display:'flex',justifyContent:"start" }}
+                sx={{
+                  m: 1, width: '30ch', display: 'flex', justifyContent: "start", '& ::placeholder': {
+                    fontSize:"14px;",textAlign:"start"
+                  }
+}}
           InputProps={{
             startAdornment: <InputAdornment position="start"><SearchIcon/></InputAdornment>,
             placeholder:"Search..."
           }}
         />
          <TextField
-          label="User Name"
+         
           id="named_id"
-          sx={{ m:1, width: '20ch',display:'flex',justifyContent:"start" }}
+                sx={{
+                  m: 1, width: '15ch', display: 'flex', justifyContent: "start", maxHeight: "20px;", '& ::placeholder': {
+                    fontSize: "14px;", textAlign: "start",color:"black"
+                  } }}
+                  inputProps={{placeholder:"User Name"}}
         />
         <FormControl sx={{ m: 1, minWidth: 120 }}>
+        <InputLabel id="user_select_label" >User Status</InputLabel>
         <Select
           value={age}
           onChange={this.handleChange}
-          
-          inputProps={{ 'aria-label': 'Without label',
-        name:"select",placeholder:"User status"
+          labelId='user_select_label'
+          label="User Status"
+          inputProps={{ 
+        name:"select",id:"status_select"
        }}
           
         >
@@ -176,13 +194,12 @@ class App extends React.Component{
       
       </FormControl>
       <DatePicker
-       label="Creation Date"
-       sx={{width:"25ch"}}
+       label="All Time"
+       sx={{width:"15ch"}}
         />
-
-        
-
     </Box>
+
+
           
         </div>
         
