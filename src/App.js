@@ -37,7 +37,7 @@ class App extends React.Component{
      
     }
     else if(this.state.modal_state==true){
-      this.setState(()=>{return {...this.state,modal_state:false}})
+     
     }
   }
   render(){
@@ -57,7 +57,7 @@ class App extends React.Component{
       <>
       
       <div className="App bg-white">
-      <Modal state={this.state.modal_state}/>
+      <Modal state={this.state.modal_state} rendering_function={this.rendering_function}/>
 
         <div className='sidebar '>
           <img src={image} />
@@ -113,7 +113,7 @@ class App extends React.Component{
             </div>
         </div>
        
-        <div className="top_div " > <strong>Good Morning!</strong> {Date().substring(0,25)}</div>
+        <div className="top_div" > <strong>Good Morning!</strong> {Date().substring(0,25)}</div>
         {/* This is the part that I'm now interested in */}
         
         <div className='container_div border'>
@@ -177,7 +177,7 @@ class App extends React.Component{
       </FormControl>
       <DatePicker
        label="Creation Date"
-       sx={{width:"20ch"}}
+       sx={{width:"25ch"}}
         />
 
         
