@@ -16,6 +16,14 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import Modal from "./Modal"
+import BlockIcon from '@mui/icons-material/Block';
+import EditIcon from '@mui/icons-material/Edit';
+import HttpsIcon from '@mui/icons-material/Https';
+import { Block } from '@mui/icons-material';
+import MoreVertIcon from '@mui/icons-material/MoreVert';
+import FileDownloadIcon from '@mui/icons-material/FileDownload';
+import DataTable from "./TableData"
+import { DataGrid } from '@mui/x-data-grid';
 
 
 
@@ -26,9 +34,13 @@ class App extends React.Component{
     super()
     this.state={age:10,users:[],modal_state:false}
 
+    this.close_modal=this.close_modal.bind(this)
+
   }
 
- 
+  close_modal=()=> {
+  this.setState({ modal_state: false })
+}
   
   toggle_modal=()=>{
     if(this.state.modal_state==false){
@@ -36,10 +48,12 @@ class App extends React.Component{
       console.log(this.state)
      
     }
+    
     else if(this.state.modal_state==true){
       this.setState(() => { return { ...this.state, modal_state: false } })
       console.log(this.state)
     }
+  
   }
   render(){
     console.log("I just got rendered")
@@ -47,10 +61,7 @@ class App extends React.Component{
 
 
     // enabling the modal child to change the state of the parent component
-    function close_modal(object){
-      this.state.modal_state=false
-      
-    }
+   
 
      this.handleChange=(e)=>{
       return this.setState({age:e.target.value})
@@ -65,7 +76,8 @@ class App extends React.Component{
       <>
       
       <div className="App bg-white">
-      <Modal state={this.state} close={close_modal}/>
+          {this.state.modal_state ? <Modal state={this.state} close={this.close_modal} /> :<div></div>}
+
 
         <div className='sidebar '>
           <img src={image} />
@@ -138,7 +150,7 @@ class App extends React.Component{
               </button>
            
           </div>
-         
+         <div className='border w-100 smaller_container'>
         <Box
         component={"div"}
       sx={{
@@ -147,7 +159,7 @@ class App extends React.Component{
         width: 'fit-content',
         height: "fit-content",
         backgroundColor: 'inherit',
-        marginTop:"10px "
+        marginTop:"5px "
       }}
       
     >
@@ -191,26 +203,34 @@ class App extends React.Component{
           <MenuItem value={30}>Thirty</MenuItem>
         </Select>
        
-      
       </FormControl>
       <DatePicker
        label="All Time"
        sx={{width:"15ch"}}
         />
-    </Box>
+      </Box>
+      <div className='d-flex justify-content-between'>
+              <div className='d-flex fit-content'>
+                <div className='random_line mx-2'></div>
+                <EditIcon sx={{ backgroundColor: "#E7E9EF", borderRadius: "5px;", padding: "5px", fontSize: "37px", margin: "4px",cursor:"pointer" }} />
+                <BlockIcon sx={{ backgroundColor: "#E7E9EF", borderRadius: "5px;", padding: "5px", fontSize: "37px", margin: "4px",cursor:"pointer" }} />
+                <HttpsIcon sx={{ backgroundColor: "#E7E9EF", borderRadius: "5px;", padding: "5px", fontSize: "37px", margin: "4px",cursor:"pointer" }} />
+               
+                <button className="smaller_container_btns">Assign to profile</button>
+                <button className="smaller_container_btns">Assign to Group</button>
+                <MoreVertIcon sx={{ backgroundColor: "#E7E9EF", borderRadius: "5px;", padding: "5px", fontSize: "37px", margin: "4px", cursor: "pointer" }} />
+                <div className='unselect'>Unselect All</div>
+              </div>
 
+              <FileDownloadIcon sx={{ backgroundColor: "#E7E9EF", borderRadius: "5px;", padding: "5px", fontSize: "37px", margin: "4px", cursor: "pointer" }} />
+              
+            
 
-          
         </div>
+        <DataTable/>
+      </div>
+    </div>
         
-
-
-
-
-
-
-
-
       </div>
 
 

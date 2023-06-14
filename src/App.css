@@ -63,12 +63,12 @@
 }
 
 .container_div{
-  width:82%;
+  width:82.1%;
   background-color: #F8FAFB;
   margin-left: 229px;
   height: 92vh;
   padding-left: 20px;
-  padding-top: 25px;
+  padding-top: 15px;
 
 }
 
@@ -85,7 +85,40 @@
 {
   margin-right: 10px;
 }
-
+.smaller_container{
+  height:455px;
+  border-top-left-radius: 20px;
+  margin-top: 10px;
+  padding:10px;
+  background-color: white;
+}
+.smaller_container_btns{
+  background-color: #E7E9EF;
+  border-radius: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  font-size: "30px";
+  margin-left: 5px;
+  height: 38px;
+  margin-top: 2.5px;
+  border: 0px;
+}
+.random_line{
+  background-color: gray;
+  border-radius: 5px;
+  height: 35px;
+  width:2px;
+  margin-top: 5px;
+  display: none;
+}
+.unselect{
+  text-decoration: underline;
+  color: #0a1436;
+  font-size: 14px;
+  cursor: pointer;
+  margin-top: 15px;
+  margin-left: 5px;
+}
 .bi.bi-plus{
   background-color:inherit;
 }

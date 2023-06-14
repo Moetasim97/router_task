@@ -10,7 +10,7 @@ class Modal extends React.Component{
 
     do_something=()=>{
         console.log(this.props)
-        return this.props.close(this.props.state)
+        return this.props.close()
     }
 
 
@@ -63,7 +63,7 @@ class Modal extends React.Component{
                <div className="d-flex w-90  justify-content-between align-items-baseline ">
                     <p className="mx-4 reset">Reset Fields</p>
                     <div className="mx-4" >
-                        <button className="modal_buttons bg-white border">Cancel</button>
+                        <button className="modal_buttons bg-white border" onClick={this.props.close}>Cancel</button>
                         <button className="margin modal_buttons bg-success text-white border ">Add User</button>
                     </div>
                </div>
