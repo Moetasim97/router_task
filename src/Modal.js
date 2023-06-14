@@ -1,6 +1,6 @@
 import React from "react"
 import "./Modal.css"
-
+import DataTable from "./TableData"
 class Modal extends React.Component{
     constructor(props)
     {
@@ -17,6 +17,7 @@ class Modal extends React.Component{
     // This function is going to receive the input from the user and update the state accordingly.
 
     recieve_input(){
+        
         // this array_counter variable is only for iterating through the copy of the state.users object
         var array_counter=this.state.array_counter
         var id=this.state.id
@@ -31,35 +32,46 @@ class Modal extends React.Component{
        var username_input=document.querySelector("#userName")
        var email_input=document.querySelector("#email_address")
        var group_input=document.querySelector("#user_group")
-       console.log("second error line")
-       var userObject={id:this.state.id,Name:fullName_input.value,user_name:username_input.value,email:email_input.value,Group:group_input.value,created_on:Date().substring(0,15)}
-        setTimeout(() => {
-        // just a buffer for the setstate above
-        }, 500);
-        var users=this.state.users
-        users[array_counter]=userObject
-        array_counter++
+       var user_profiles=document.querySelector("#user_profile")
+
+        var userObject = { id: this.state.id, Name: fullName_input.value, user_name: username_input.value, email: email_input.value, Group: group_input.value,user_profiles:user_profiles.value, created_on: Date().substring(0, 15) }
+        var users = this.state.users
+   
        
-        this.setState({users})
-        console.log(this.state.users)
-        this.setState({ array_counter })
-    //    Question: Why can't reference the state directly inside the setstate method?
+       
+    
+        console.log(users)
         
-        return [fullName_input.value = '', username_input.value = '', email_input.value = '', group_input = '', this.props.updateParent(this.state.users)]
-    }
+       
+        users = [...users, userObject]
+  
+        array_counter++
+        console.log(users)
+       
+        this.setState({ users, array_counter })
+     
+       
 
-
+        
+         this.props.updateParent(this.state)
+        
+        return [fullName_input.value = '', username_input.value = '', email_input.value = '', group_input = '',user_profiles.value='' ]
+    }   
 
     render(){
-        
+       
       
         if(this.props.state.modal_state==false){
-            return(<div></div>)
+            return (<><div> {this.props.children(this.state.users)}</div></>)
         }
         
         else {
+            
             return(
+                
                 <>
+                    
+                 
                 <div className="modal_background ">
                <div className="header_modal d-flex justify-content-between  p-2">
                     <div className="text-light pt-1  h6">Add New User</div>
@@ -80,22 +92,28 @@ class Modal extends React.Component{
                <input className="emailaddress custom_style mb-2" type="text" placeholder="Enter email address" id="email_address"></input>
                </div>
                <div>
-               <div className="d-flex justify-content-start"><label htmlFor="user_group">User Group</label></div>
+               <div className="d-flex justify-content-start">
+                <label htmlFor="user_group">User Group</label></div>
                <select className="custom_style mb-2" name="groups" required id="user_group">
                     <option value="" disabled selected>Choose User Group</option>
-                    <option value="office">Office</option>
-                    <option value="managers">Managers</option>
-                    <option value="head_office">Head Office</option>
+                    <option value="Office">Office</option>
+                    <option value="Managers">Managers</option>
+                    <option value="Head Office">Head Office</option>
 
                 </select>
                </div>
                {/* this next select is going to be present for aesthetic purposes only to match
                the look and feel of the client's design */}
                <div>
-               <div className="d-flex justify-content-start"><label htmlFor="user_profile">Assign Profile</label></div>
-               <select className="  custom_style mb-3" id="user_profile">
-                    <option>Assign Profile</option>
-                </select>
+               <div className="d-flex justify-content-start">
+                <label htmlFor="user_profile">Assign Profile</label></div>
+                            <select className="custom_style mb-2" name="profiles" required id="user_profile">
+                                <option value="" disabled selected>Assign Profile</option>
+                                <option value="Active">Active</option>
+                                <option value="Locked">Locked</option>
+
+
+                            </select>
                </div>
                <div className="d-flex w-90  justify-content-between align-items-baseline ">
                     <p className="mx-4 reset">Reset Fields</p>
@@ -105,7 +123,7 @@ class Modal extends React.Component{
                     </div>
                </div>
                 </div>
-
+               {this.props.children(this.state.users)}
                 </>
             )
 

@@ -24,6 +24,7 @@ import MoreVertIcon from '@mui/icons-material/MoreVert';
 import FileDownloadIcon from '@mui/icons-material/FileDownload';
 import DataTable from "./TableData"
 import { DataGrid } from '@mui/x-data-grid';
+import Autocomplete from '@mui/material/Autocomplete';
 
 
 
@@ -32,7 +33,7 @@ import { DataGrid } from '@mui/x-data-grid';
 class App extends React.Component{
   constructor(){
     super()
-    this.state={age:10,modal_state:false,users:[]}
+    this.state = { modal_state: false,status:["Active","Locked"] }
 
     this.close_modal=this.close_modal.bind(this)
     this.updateStateFromModal=this.updateStateFromModal.bind(this)
@@ -55,8 +56,12 @@ class App extends React.Component{
     }
   // This function is responsible for updating the state of the parent from the modal child component
   }
-  updateStateFromModal=(users)=>{
-    this.setState(()=>{return {...this.state,users}})
+  // why does the name of the argument matter?
+  updateStateFromModal=(state)=>{
+    
+    this.setState(()=>{return  {...this.state,state}})
+    
+  
   }
   render(){
     console.log(this.state)
@@ -75,11 +80,12 @@ class App extends React.Component{
   
   
     return (
-
+      
       <>
       
       <div className="App bg-white">
-          {this.state.modal_state ? <Modal state={this.state} close={this.close_modal} updateParent={this.updateStateFromModal} /> :<div></div>}
+          
+           
 
 
         <div className='sidebar '>
@@ -158,11 +164,12 @@ class App extends React.Component{
         component={"div"}
       sx={{
         display:"flex",
-        alignItems:"baseline",
+       
         width: 'fit-content',
         height: "fit-content",
         backgroundColor: 'inherit',
-        marginTop:"5px "
+        marginTop:"5px ",
+        
       }}
       
     >
@@ -188,28 +195,19 @@ class App extends React.Component{
                   } }}
                   inputProps={{placeholder:"User Name"}}
         />
-        <FormControl sx={{ m: 1, minWidth: 120 }}>
-        <InputLabel id="user_select_label" >User Status</InputLabel>
-        <Select
-          value={age}
-          onChange={this.handleChange}
-          labelId='user_select_label'
-          label="User Status"
-          inputProps={{ 
-        name:"select",id:"status_select"
-       }}
-          
-        >
-          
-          <MenuItem value={10}>Ten</MenuItem>
-          <MenuItem value={20}>Twenty</MenuItem>
-          <MenuItem value={30}>Thirty</MenuItem>
-        </Select>
-       
-      </FormControl>
+        
+        
+        <Autocomplete
+        id="combo-box-demo"
+        options={this.state.status}
+        sx={{marginTop:"8px",marginRight:"8px", width: 130 }}
+        renderInput={(params) => <TextField {...params} label="User Status" />}
+        />
+                
+      
       <DatePicker
        label="All Time"
-       sx={{width:"15ch"}}
+       sx={{marginTop:"8px",marginRight:"8px",width:"15ch"}}
         />
       </Box>
       <div className='d-flex justify-content-between'>
@@ -223,14 +221,25 @@ class App extends React.Component{
                 <button className="smaller_container_btns">Assign to Group</button>
                 <MoreVertIcon sx={{ backgroundColor: "#E7E9EF", borderRadius: "5px;", padding: "5px", fontSize: "37px", margin: "4px", cursor: "pointer" }} />
                 <div className='unselect'>Unselect All</div>
+                  
               </div>
+                
 
               <FileDownloadIcon sx={{ backgroundColor: "#E7E9EF", borderRadius: "5px;", padding: "5px", fontSize: "37px", margin: "4px", cursor: "pointer" }} />
               
             
 
         </div>
-        <DataTable users={this.state.users}/>
+              <Modal state={this.state} close={this.close_modal} updateParent={this.updateStateFromModal}>{
+                users=>(
+                  <div>
+                  <DataTable entire_object={users}/>
+                  </div>
+                     )
+              }
+               
+              </Modal>
+        
       </div>
     </div>
         
