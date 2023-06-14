@@ -17,6 +17,7 @@ class Modal extends React.Component{
     // This function is going to receive the input from the user and update the state accordingly.
 
     recieve_input(){
+        // this array_counter variable is only for iterating through the copy of the state.users object
         var array_counter=this.state.array_counter
         var id=this.state.id
         if (this.state.id >= 1){
@@ -43,13 +44,15 @@ class Modal extends React.Component{
         console.log(this.state.users)
         this.setState({ array_counter })
     //    Question: Why can't reference the state directly inside the setstate method?
-       return [fullName_input.value='',username_input.value='',email_input.value='',group_input='',this.props.updateParent(users)]
+        
+        return [fullName_input.value = '', username_input.value = '', email_input.value = '', group_input = '', this.props.updateParent(this.state.users)]
     }
 
 
 
     render(){
         
+      
         if(this.props.state.modal_state==false){
             return(<div></div>)
         }
