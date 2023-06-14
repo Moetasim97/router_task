@@ -5,13 +5,47 @@ class Modal extends React.Component{
     constructor(props)
     {
         super(props)
-        this.state={}
+        this.state={id:1,array_counter:0,users:[]}
+        this.recieve_input=this.recieve_input.bind(this)
     }
-
+// this function will handle collapsing the modal child component
     do_something=()=>{
-        console.log(this.props)
+   
         return this.props.close()
     }
+
+    // This function is going to receive the input from the user and update the state accordingly.
+
+    recieve_input(){
+        var array_counter=this.state.array_counter
+        var id=this.state.id
+        if (this.state.id >= 1){
+        this.setState({ id: id + 1 })
+        }
+        else{
+            this.state.id=1
+        }
+            
+       var fullName_input= document.querySelector("#fullName")
+       var username_input=document.querySelector("#userName")
+       var email_input=document.querySelector("#email_address")
+       var group_input=document.querySelector("#user_group")
+       console.log("second error line")
+       var userObject={id:this.state.id,Name:fullName_input.value,user_name:username_input.value,email:email_input.value,Group:group_input.value,created_on:Date().substring(0,15)}
+        setTimeout(() => {
+        // just a buffer for the setstate above
+        }, 500);
+        var users=this.state.users
+        users[array_counter]=userObject
+        array_counter++
+       
+        this.setState({users})
+        console.log(this.state.users)
+        this.setState({ array_counter })
+    //    Question: Why can't reference the state directly inside the setstate method?
+       return [fullName_input.value='',username_input.value='',email_input.value='',group_input='',this.props.updateParent(users)]
+    }
+
 
 
     render(){
@@ -64,7 +98,7 @@ class Modal extends React.Component{
                     <p className="mx-4 reset">Reset Fields</p>
                     <div className="mx-4" >
                         <button className="modal_buttons bg-white border" onClick={this.props.close}>Cancel</button>
-                        <button className="margin modal_buttons bg-success text-white border ">Add User</button>
+                        <button className="margin modal_buttons bg-success text-white border " onClick={this.recieve_input}>Add User</button>
                     </div>
                </div>
                 </div>

@@ -32,9 +32,10 @@ import { DataGrid } from '@mui/x-data-grid';
 class App extends React.Component{
   constructor(){
     super()
-    this.state={age:10,users:[],modal_state:false}
+    this.state={age:10,modal_state:false,users:[]}
 
     this.close_modal=this.close_modal.bind(this)
+    this.updateStateFromModal=this.updateStateFromModal.bind(this)
 
   }
 
@@ -45,18 +46,20 @@ class App extends React.Component{
   toggle_modal=()=>{
     if(this.state.modal_state==false){
       this.setState(()=>{ return {...this.state,modal_state:true}})
-      console.log(this.state)
+      
      
     }
-    
     else if(this.state.modal_state==true){
       this.setState(() => { return { ...this.state, modal_state: false } })
-      console.log(this.state)
+      
     }
-  
+  // This function is responsible for updating the state of the parent from the modal child component
+  }
+  updateStateFromModal=(users)=>{
+    this.setState(()=>{return {...this.state,users}})
   }
   render(){
-    console.log("I just got rendered")
+    console.log(this.state)
     const age=this.state.age
 
 
@@ -76,7 +79,7 @@ class App extends React.Component{
       <>
       
       <div className="App bg-white">
-          {this.state.modal_state ? <Modal state={this.state} close={this.close_modal} /> :<div></div>}
+          {this.state.modal_state ? <Modal state={this.state} close={this.close_modal} updateParent={this.updateStateFromModal} /> :<div></div>}
 
 
         <div className='sidebar '>
@@ -227,7 +230,7 @@ class App extends React.Component{
             
 
         </div>
-        <DataTable/>
+        <DataTable users={this.state.users}/>
       </div>
     </div>
         
