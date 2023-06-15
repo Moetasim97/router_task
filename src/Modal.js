@@ -1,6 +1,6 @@
 import React from "react"
 import "./Modal.css"
-import DataTable from "./TableData"
+
 class Modal extends React.Component{
     constructor(props)
     {
@@ -36,24 +36,44 @@ class Modal extends React.Component{
 
         var userObject = { id: this.state.id, Name: fullName_input.value, user_name: username_input.value, email: email_input.value, Group: group_input.value,user_profiles:user_profiles.value, created_on: Date().substring(0, 15) }
         var users = this.state.users
+    // this line above creates a deep copy of the state
+           
+        users[array_counter]=userObject
+        
+        var temp =[...this.state.users];
+       
+        temp.push(userObject);
+        
+    
+  console.log(temp)
+  console.log(users)
+//   Just as I expected, temp contains two copies of the userobject.Yet somehow only one object gets passed
+// to the datatable component
    
        
        
     
-        console.log(users)
         
-       
-        users = [...users, userObject]
-  
+        
+    
         array_counter++
-        console.log(users)
-       
-        this.setState({ users, array_counter })
      
+       
+        this.setState({users:temp, array_counter })
+    
+
+        // this timeout function solved the mystery. The  above setstate method updates the state of the 
+        // parent asynchronously. What only gets passed to the datatable method is the state of the modal
+        // as it was updated by the users[array_counter]=userobject statement.
+        // setTimeout(() => {
+        //     this.props.updateParent(this.state)
+        // }, 2000);
+
+        this.props.updateParent(this.state)
        
 
         
-         this.props.updateParent(this.state)
+         
         
         return [fullName_input.value = '', username_input.value = '', email_input.value = '', group_input = '',user_profiles.value='' ]
     }   
@@ -62,7 +82,7 @@ class Modal extends React.Component{
        
       
         if(this.props.state.modal_state==false){
-            return (<><div> {this.props.children(this.state.users)}</div></>)
+            return (<><div> </div></>)
         }
         
         else {
@@ -123,7 +143,7 @@ class Modal extends React.Component{
                     </div>
                </div>
                 </div>
-               {this.props.children(this.state.users)}
+               
                 </>
             )
 

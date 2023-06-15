@@ -15,7 +15,7 @@ import FormHelperText from '@mui/material/FormHelperText';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
-import Modal from "./Modal"
+import Modal from  "./Modal"
 import BlockIcon from '@mui/icons-material/Block';
 import EditIcon from '@mui/icons-material/Edit';
 import HttpsIcon from '@mui/icons-material/Https';
@@ -23,7 +23,7 @@ import { Block } from '@mui/icons-material';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import FileDownloadIcon from '@mui/icons-material/FileDownload';
 import DataTable from "./TableData"
-import { DataGrid } from '@mui/x-data-grid';
+
 import Autocomplete from '@mui/material/Autocomplete';
 
 
@@ -43,6 +43,8 @@ class App extends React.Component{
   close_modal=()=> {
   this.setState({ modal_state: false })
 }
+
+ 
   
   toggle_modal=()=>{
     if(this.state.modal_state==false){
@@ -63,8 +65,9 @@ class App extends React.Component{
     
   
   }
+  // The render function #############################################################################
   render(){
-    console.log(this.state)
+    // console.log(this.state)
     const age=this.state.age
 
 
@@ -171,7 +174,6 @@ class App extends React.Component{
         marginTop:"5px ",
         
       }}
-      
     >
        <TextField
           label=""
@@ -230,15 +232,13 @@ class App extends React.Component{
             
 
         </div>
-              <Modal state={this.state} close={this.close_modal} updateParent={this.updateStateFromModal}>{
-                users=>(
-                  <div>
-                  <DataTable entire_object={users}/>
-                  </div>
-                     )
-              }
-               
-              </Modal>
+              <Modal state={this.state} close={this.close_modal} updateParent={this.updateStateFromModal}/>
+                
+                  
+                  <DataTable entire_object={this.state} EditParentState={this.updateStateFromModal}/>
+                  
+                     
+              
         
       </div>
     </div>
