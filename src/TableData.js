@@ -42,7 +42,9 @@ const columns = [
   ];
   
   
-  export default function DataTable({entire_object}) {
+  export default function DataTable({entire_object,EditParentState}) {
+    console.log(entire_object)
+
     var users=[]
     var selectedRow=0;
     const modal_ref=React.useRef()
@@ -53,14 +55,40 @@ const columns = [
       
     }
     
-    function open_modal(args){
-      console.log(args.id)
-      modal_ref.current.style.display="block"
-      
-    }
+    
     function close_modal(){
       modal_ref.current.style.display="none"
     }
+    function open_modal(args){
+     
+      modal_ref.current.style.display="block"
+      console.log(args.id)
+     return selectedRow=args.id
+    }
+    function edit_parent(args)
+    {
+      console.log(selectedRow)
+      var fullName_input= document.querySelector(".editFullName")
+      var username_input=document.querySelector(".editUserName")
+      var email_input=document.querySelector(".editEmailAddress")
+      var group_input=document.querySelector(".editGroup")
+      var user_profiles=document.querySelector(".editProfile")
+      var editObject={  id: selectedRow, Name: fullName_input.value, user_name: username_input.value, email: email_input.value, Group: group_input.value,user_profiles:user_profiles.value, created_on: Date().substring(0, 15) }
+      if(entire_object?.state?.users){
+        var users=[...entire_object.state.users]
+        
+       users.splice(selectedRow-1,1,editObject)
+       console.log(users)
+       entire_object.state.users=users
+       console.log(entire_object)
+      }
+      
+     
+      
+      return EditParentState(entire_object)
+    }
+
+
     return (
       <>
       <div className='edit_modal' ref={modal_ref}>
@@ -72,20 +100,20 @@ const columns = [
                </div>
                <div>
                <div className="d-flex justify-content-start mt-4  mx-4"><label htmlFor="fullName">Full Name</label></div>
-               <input className="fullusername custom_style mb-2" type="text" placeholder="Enter Full Name" id="fullName"></input>
+               <input className="editFullName custom_style mb-2" type="text" placeholder="Enter Full Name" id="fullName"></input>
                </div>
                <div>
                <div className="d-flex justify-content-start mx-4"><label htmlFor="userName">User Name</label></div>
-               <input className="username custom_style mb-2" type="text" placeholder="Enter username" id="userName"></input>
+               <input className="editUserName custom_style mb-2" type="text" placeholder="Enter username" id="userName"></input>
                </div>
                <div>
                <div className="d-flex justify-content-start mx-4"><label htmlFor="email_address">Email Address</label></div>
-               <input className="emailaddress custom_style mb-2" type="text" placeholder="Enter email address" id="email_address"></input>
+               <input className="editEmailAddress custom_style mb-2" type="text" placeholder="Enter email address" id="email_address"></input>
                </div>
                <div>
                <div className="d-flex justify-content-start mx-4">
                 <label htmlFor="user_group">User Group</label></div>
-               <select className="custom_style mb-2" name="groups" required id="user_group">
+               <select className="custom_style mb-2 editGroup" name="groups" required id="user_group">
                     <option value="" disabled selected>Choose User Group</option>
                     <option value="Office">Office</option>
                     <option value="Managers">Managers</option>
@@ -98,7 +126,7 @@ const columns = [
                <div>
                <div className="d-flex justify-content-start mx-4 ">
                 <label htmlFor="user_profile">Assign Profile</label></div>
-                            <select className="custom_style mb-3" name="profiles" required id="user_profile">
+                            <select className="custom_style mb-3 editProfile" name="profiles" required id="user_profile">
                                 <option value="" disabled selected>Assign Profile</option>
                                 <option value="Active">Active</option>
                                 <option value="Locked">Locked</option>
@@ -109,8 +137,8 @@ const columns = [
                <div className="d-flex w-90  justify-content-center mb-2 align-items-baseline ">
                    
                     <div className="mx-4" >
-                        <button className="modal_buttons bg-white border" onClick={console.log("nothing")}>Cancel</button>
-                        <button className="margin modal_buttons bg-success text-white border " onClick={console.log("nosing")}>Edit User</button>
+                        <button className="modal_buttons bg-white border" onClick={close_modal}>Cancel</button>
+                        <button className="margin modal_buttons bg-success text-white border " onClick={edit_parent}>Edit User</button>
                     </div>
                </div>
       </div>

@@ -65,9 +65,12 @@ class App extends React.Component{
     
   
   }
+  Revitalize_state=(state)=>{
+    this.setState(state)
+  }
   // The render function #############################################################################
   render(){
-    // console.log(this.state)
+    console.log(this.state)
     const age=this.state.age
 
 
@@ -235,7 +238,7 @@ class App extends React.Component{
               <Modal state={this.state} close={this.close_modal} updateParent={this.updateStateFromModal}/>
                 
                   
-                  <DataTable entire_object={this.state} EditParentState={this.updateStateFromModal}/>
+                  <DataTable entire_object={this.state} EditParentState={this.Revitalize_state}/>
                   
                      
               

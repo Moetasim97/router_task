@@ -45,8 +45,8 @@ class Modal extends React.Component{
         temp.push(userObject);
         
     
-  console.log(temp)
-  console.log(users)
+//   console.log(temp)
+//   console.log(users)
 //   Just as I expected, temp contains two copies of the userobject.Yet somehow only one object gets passed
 // to the datatable component
    
