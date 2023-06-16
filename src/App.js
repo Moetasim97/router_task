@@ -16,12 +16,7 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import Modal from  "./Modal"
-import BlockIcon from '@mui/icons-material/Block';
-import EditIcon from '@mui/icons-material/Edit';
-import HttpsIcon from '@mui/icons-material/Https';
-import { Block } from '@mui/icons-material';
-import MoreVertIcon from '@mui/icons-material/MoreVert';
-import FileDownloadIcon from '@mui/icons-material/FileDownload';
+
 import DataTable from "./TableData"
 
 import Autocomplete from '@mui/material/Autocomplete';
@@ -33,7 +28,7 @@ import Autocomplete from '@mui/material/Autocomplete';
 class App extends React.Component{
   constructor(){
     super()
-    this.state = { modal_state: false,status:["Active","Locked"] }
+    this.state = { modal_state: false,status:["Active","Locked"],flag:false }
 
     this.close_modal=this.close_modal.bind(this)
     this.updateStateFromModal=this.updateStateFromModal.bind(this)
@@ -44,7 +39,8 @@ class App extends React.Component{
   this.setState({ modal_state: false })
 }
 
- 
+
+
   
   toggle_modal=()=>{
     if(this.state.modal_state==false){
@@ -65,6 +61,11 @@ class App extends React.Component{
     
   
   }
+
+  filter_data=(ev)=>{
+    console.log(ev)
+  }
+// this method is going to be called by the datatable component to update the state on editing.
   Revitalize_state=(state)=>{
     this.setState(state)
   }
@@ -77,9 +78,7 @@ class App extends React.Component{
     // enabling the modal child to change the state of the parent component
    
 
-     this.handleChange=(e)=>{
-      return this.setState({age:e.target.value})
-      }
+   
       // logic for rendering the modal
       
     
@@ -166,75 +165,8 @@ class App extends React.Component{
            
           </div>
          <div className='border w-100 smaller_container'>
-        <Box
-        component={"div"}
-      sx={{
-        display:"flex",
-       
-        width: 'fit-content',
-        height: "fit-content",
-        backgroundColor: 'inherit',
-        marginTop:"5px ",
         
-      }}
-    >
-       <TextField
-          label=""
-          id="outlined-start-adornment"
-                sx={{
-                  m: 1, width: '30ch', display: 'flex', justifyContent: "start", '& ::placeholder': {
-                    fontSize:"14px;",textAlign:"start"
-                  }
-}}
-          InputProps={{
-            startAdornment: <InputAdornment position="start"><SearchIcon/></InputAdornment>,
-            placeholder:"Search..."
-          }}
-        />
-         <TextField
-         
-          id="named_id"
-                sx={{
-                  m: 1, width: '15ch', display: 'flex', justifyContent: "start", maxHeight: "20px;", '& ::placeholder': {
-                    fontSize: "14px;", textAlign: "start",color:"black"
-                  } }}
-                  inputProps={{placeholder:"User Name"}}
-        />
-        
-        
-        <Autocomplete
-        id="combo-box-demo"
-        options={this.state.status}
-        sx={{marginTop:"8px",marginRight:"8px", width: 130 }}
-        renderInput={(params) => <TextField {...params} label="User Status" />}
-        />
-                
       
-      <DatePicker
-       label="All Time"
-       sx={{marginTop:"8px",marginRight:"8px",width:"15ch"}}
-        />
-      </Box>
-      <div className='d-flex justify-content-between'>
-              <div className='d-flex fit-content'>
-                <div className='random_line mx-2'></div>
-                <EditIcon sx={{ backgroundColor: "#E7E9EF", borderRadius: "5px;", padding: "5px", fontSize: "37px", margin: "4px",cursor:"pointer" }} />
-                <BlockIcon sx={{ backgroundColor: "#E7E9EF", borderRadius: "5px;", padding: "5px", fontSize: "37px", margin: "4px",cursor:"pointer" }} />
-                <HttpsIcon sx={{ backgroundColor: "#E7E9EF", borderRadius: "5px;", padding: "5px", fontSize: "37px", margin: "4px",cursor:"pointer" }} />
-               
-                <button className="smaller_container_btns">Assign to profile</button>
-                <button className="smaller_container_btns">Assign to Group</button>
-                <MoreVertIcon sx={{ backgroundColor: "#E7E9EF", borderRadius: "5px;", padding: "5px", fontSize: "37px", margin: "4px", cursor: "pointer" }} />
-                <div className='unselect'>Unselect All</div>
-                  
-              </div>
-                
-
-              <FileDownloadIcon sx={{ backgroundColor: "#E7E9EF", borderRadius: "5px;", padding: "5px", fontSize: "37px", margin: "4px", cursor: "pointer" }} />
-              
-            
-
-        </div>
               <Modal state={this.state} close={this.close_modal} updateParent={this.updateStateFromModal}/>
                 
                   
