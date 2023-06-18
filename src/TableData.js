@@ -24,30 +24,30 @@ const columns = [
     {
       field: 'Name',
       headerName: 'Full Name',
-      width: 200,
+      width: 150,
     },
     {
       field: 'user_name',
       headerName: 'User Name',
-      width: 200,
+      width: 150,
      
     },
     {
       field: 'email',
       headerName: 'Email Address',
-      width: 200 ,
+      width: 150 ,
 
     },
     {
       field: 'Group',
       headerName: 'Group',
-      width: 200,
+      width: 150,
       
     },
     {
       field:'user_profiles',
       headerName:"Status",
-      width:200,
+      width:150,
   
     },
     {
@@ -60,7 +60,7 @@ const columns = [
   
   
   export default function DataTable({entire_object,EditParentState}) {
-    console.log(entire_object)
+
     var filtered_array=[]
     var getGrid=React.useRef()
     
@@ -93,7 +93,7 @@ const columns = [
     // This function is responsible for editing the parent's state
     function edit_parent()
     {
-      console.log(selectedRow)
+   
       var fullName_input= document.querySelector(".editFullName")
       var username_input=document.querySelector(".editUserName")
       var email_input=document.querySelector(".editEmailAddress")
@@ -138,8 +138,8 @@ const columns = [
             startAdornment: <InputAdornment position="start"><SearchIcon/></InputAdornment>,
             placeholder:"Search..."
           }}
+          // this function is responsible for the filtering
           onChange={(e)=>{
-            var users_copy=entire_object.state.users
             entire_object.flag=true
             var input=e.target.value
             filtered_array=[]
@@ -154,7 +154,7 @@ const columns = [
               entire_object.flag=false
               
             }
-
+// the state of the parent gets updated here
             EditParentState(entire_object)
             
 
@@ -177,15 +177,80 @@ const columns = [
         
         <Autocomplete
         id="combo-box-demo"
-        options={[1,2,3]}
-        sx={{marginTop:"8px",marginRight:"8px", width: 130 }}
+        sx={{marginTop:"8px",marginRight:"8px", width: 150 }}
+        options={entire_object.status}
+        multiple
+        onChange={(e)=>{
+         
+          entire_object.flag=true
+            var input=e.target.textContent
+            console.log(input)
+            filtered_array=[]
+            if(entire_object?.state){
+              for(var u=0;u<entire_object.state.users.length;u++){
+           
+                if(entire_object.state.users[u].user_profiles==input){
+                  filtered_array.push(entire_object.state.users[u])
+                  
+                }
+              }
+            }
+            entire_object.filtered=filtered_array
+            
+            filtered_array=[...entire_object.filtered,filtered_array]
+            
+           
+            if(e.target.textContent==""){
+              entire_object.flag=false
+              
+            }
+
+            console.log(entire_object.filtered)
+// the state of the parent gets updated here
+            EditParentState(entire_object)
+          
+
+        }}
         renderInput={(params) => <TextField {...params} label="User Status" />}
         />
+        
                 
-      
       <DatePicker
        label="All Time"
        sx={{marginTop:"8px",marginRight:"8px",width:"15ch"}}
+       onChange={(e)=>{
+        
+        entire_object.flag=true
+        var input=e.$d
+        input=""+input
+        input=input.substring(0,15)
+ 
+        
+        filtered_array=[]
+        if(entire_object?.state){
+          for(var u=0;u<entire_object.state.users.length;u++){
+       
+            if(entire_object.state.users[u].created_on==input){
+              filtered_array.push(entire_object.state.users[u])
+              
+            }
+          }
+        }
+        entire_object.filtered=filtered_array
+        
+        filtered_array=[...entire_object.filtered,filtered_array]
+        
+       
+        if(input==""){
+          entire_object.flag=false
+          
+        }
+
+        console.log(entire_object.filtered)
+// the state of the parent gets updated here
+        EditParentState(entire_object)
+      
+       }}
         />
       </Box>
    
