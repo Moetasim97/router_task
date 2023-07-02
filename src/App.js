@@ -1,25 +1,10 @@
 import './App.css';
 import image from './Screenshot 2023-06-11 222930.png'
 import React from "react"
-import Dropdown from 'react-dropdown';
 import 'react-dropdown/style.css';
-import Button from '@mui/material/Button';
-import TextField from "@mui/material/TextField"
-import InputAdornment from '@mui/material/InputAdornment';
-import SearchIcon from '@mui/icons-material/Search';
-import OutlinedInput from '@mui/material/OutlinedInput';
-import Box from '@mui/material/Box';
-import InputLabel from '@mui/material/InputLabel';
-import MenuItem from '@mui/material/MenuItem';
-import FormHelperText from '@mui/material/FormHelperText';
-import FormControl from '@mui/material/FormControl';
-import Select from '@mui/material/Select';
-import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import Modal from  "./Modal"
-
 import DataTable from "./TableData"
 
-import Autocomplete from '@mui/material/Autocomplete';
 
 
 
@@ -61,6 +46,8 @@ class App extends React.Component{
     
   
   }
+  // This function supposedly created a new object in the state of the parent component that initializies 
+  // the part of the state that gets passed down to the data table component
 
   filter_data=(ev)=>{
     console.log(ev)
@@ -69,11 +56,13 @@ class App extends React.Component{
   Revitalize_state=(state)=>{
     this.setState(state)
   }
+  // As I now understand it, this function's sole purpose is to update the part of the state that corresponds
+  // to the modal
+  // ++
   // The render function #############################################################################
   render(){
     console.log(this.state)
-    const age=this.state.age
-
+    
 
     // enabling the modal child to change the state of the parent component
    
@@ -89,10 +78,6 @@ class App extends React.Component{
       <>
       
       <div className="App bg-white">
-          
-           
-
-
         <div className='sidebar '>
           <img src={image} />
         <div className="form-outline">
@@ -148,7 +133,7 @@ class App extends React.Component{
         </div>
        
         <div className="top_div border border-seconndary" > <strong>Good Morning!</strong> {Date().substring(0,25)}</div>
-        {/* This is the part that I'm now interested in */}
+
         
         <div className='container_div border'>
           
@@ -168,13 +153,8 @@ class App extends React.Component{
         
       
               <Modal state={this.state} close={this.close_modal} updateParent={this.updateStateFromModal}/>
-                
-                  
                   <DataTable entire_object={this.state} EditParentState={this.Revitalize_state}/>
                   
-                     
-              
-        
       </div>
     </div>
         

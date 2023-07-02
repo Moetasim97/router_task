@@ -63,18 +63,14 @@ const columns = [
 
     var filtered_array=[]
     var getGrid=React.useRef()
-    
-    
     var users=[]
     var selectedRow=0;
     const modal_ref=React.useRef()
     
     if(entire_object.state!=undefined){
       users=entire_object.state.users
-      
-     
-      
     }
+
     if(entire_object.flag==true){
       users=entire_object.filtered
     }
@@ -93,7 +89,6 @@ const columns = [
     // This function is responsible for editing the parent's state
     function edit_parent()
     {
-   
       var fullName_input= document.querySelector(".editFullName")
       var username_input=document.querySelector(".editUserName")
       var email_input=document.querySelector(".editEmailAddress")
@@ -110,8 +105,6 @@ const columns = [
       return EditParentState(entire_object)
     }
 // End of this function
-
-
     return (
       <>
       <Box
@@ -156,13 +149,7 @@ const columns = [
             }
 // the state of the parent gets updated here
             EditParentState(entire_object)
-            
-
-
           }}
-           
-          
-          
         />
          <TextField
          
@@ -181,7 +168,6 @@ const columns = [
         options={entire_object.status}
         multiple
         onChange={(e)=>{
-         
           entire_object.flag=true
             var input=e.target.textContent
             console.log(input)
@@ -191,7 +177,6 @@ const columns = [
            
                 if(entire_object.state.users[u].user_profiles==input){
                   filtered_array.push(entire_object.state.users[u])
-                  
                 }
               }
             }
@@ -345,12 +330,7 @@ const columns = [
         onRowClick={open_modal}
       />
     </Box>
-  
-    
-      
-
       </>
-
     );
   }
 

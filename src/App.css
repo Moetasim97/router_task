@@ -5,14 +5,14 @@
 }
 
 .sidebar{
-  position: absolute;
-  height:100vh;
+  position: fixed;
+  height:100%;
   width: fit-content;
   background-color: #0a1436;
   padding-left: 10px;
   padding-right: 10px;
-  
 }
+
 .form-outline{
   position: relative;
 }
@@ -125,4 +125,13 @@
 
 .random_div{
   background-color: white;
+}
+
+.validation_message{
+  color: violet;
+  font-size: 10px;
+  font-style: italic;
+  text-align: start;
+  padding-left: 30px;
+  margin-top: -5px;
 }
