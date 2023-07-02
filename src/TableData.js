@@ -14,6 +14,8 @@ import HttpsIcon from '@mui/icons-material/Https';
 import { Block } from '@mui/icons-material';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import FileDownloadIcon from '@mui/icons-material/FileDownload';
+import { useForm } from 'react-hook-form';
+
 
 
 
@@ -60,6 +62,8 @@ const columns = [
   
   
   export default function DataTable({entire_object,EditParentState}) {
+    const {register,formState:{errors},handleSubmit}=useForm()
+    console.log(errors)
 
     var filtered_array=[]
     var getGrid=React.useRef()
@@ -102,7 +106,7 @@ const columns = [
        entire_object.state.users=users
     
       }
-      return EditParentState(entire_object)
+      return EditParentState(entire_object),[fullName_input.value="",username_input.value="",email_input.value=""]
     }
 // End of this function
     return (
@@ -246,17 +250,21 @@ const columns = [
                     <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
                     </svg>
                </div>
+               <form onSubmit={handleSubmit(()=>{return edit_parent()})}>
                <div>
                <div className="d-flex justify-content-start mt-4  mx-4"><label htmlFor="fullName">Full Name</label></div>
-               <input className="editFullName custom_style mb-2" type="text" placeholder="Enter Full Name" id="fullName"></input>
+               <input className="editFullName custom_style mb-2" type="text" placeholder="Enter Full Name" id="fullName"  {...register("Name",{required:"The full name is required",minLength:{value:10,message:"Minimum length should be at least 10 characters"}})}></input>
+               {errors.Name? <div className="validation_message">{errors.Name.message}</div>:<div className="d-none"></div>}
                </div>
                <div>
                <div className="d-flex justify-content-start mx-4"><label htmlFor="userName">User Name</label></div>
-               <input className="editUserName custom_style mb-2" type="text" placeholder="Enter username" id="userName"></input>
+               <input className="editUserName custom_style mb-2" type="text" placeholder="Enter username" id="userName" {...register("user_name",{required:"Username is required",minLength:{value:4,message:"Username is too short"}})}></input>
+               {errors.user_name? <div className="validation_message">{errors.user_name.message}</div>:<div className="d-none"></div>}
                </div>
                <div>
                <div className="d-flex justify-content-start mx-4"><label htmlFor="email_address">Email Address</label></div>
-               <input className="editEmailAddress custom_style mb-2" type="text" placeholder="Enter email address" id="email_address"></input>
+               <input className="editEmailAddress custom_style mb-2" type="text" placeholder="Enter email address" id="email_address" {...register("email",{required:"Email address is required",pattern:{value:/^[^\s@]+@[^\s@]+\.[^\s@]+$/,message:"Invalid Email Address"}})}></input>
+               {errors.email? <div className="validation_message">{errors.email.message}</div>:<div className="d-none"></div>}
                </div>
                <div>
                <div className="d-flex justify-content-start mx-4">
@@ -286,9 +294,10 @@ const columns = [
                    
                     <div className="mx-4" >
                         <button className="modal_buttons bg-white border" onClick={close_modal}>Cancel</button>
-                        <button className="margin modal_buttons bg-success text-white border " onClick={edit_parent}>Edit User</button>
+                        <button className="margin modal_buttons bg-success text-white border " type='submit'>Edit User</button>
                     </div>
                </div>
+               </form>
       </div>
       <div className='d-flex justify-content-between'>
               <div className='d-flex fit-content'>

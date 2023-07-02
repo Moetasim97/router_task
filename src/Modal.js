@@ -6,7 +6,7 @@ import {useForm} from "react-hook-form"
 function Modal({state,close,updateParent}){
 
     const {register,control,handleSubmit,formState:{errors}}=useForm()
-    console.log(errors)
+
 
   
     const [id,setId]=React.useState(1)
